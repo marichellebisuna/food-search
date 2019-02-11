@@ -4,26 +4,29 @@ import {recipe} from '../tempDetails';
 export default class RecipeDetails extends Component {
     constructor(props){
           super(props);
-
+    
           this.state={
             recipe:recipe,
             url:`https://www.food2fork.com/api/get?key=d3187323b2f39c6c707dd4b6f2ee98be&rId=${this.props.id}`
           };
       }
-
-     async componentDidMount(){
-      try{
+    
+ async componentDidMount(){
+   
+   try{
            const data = await fetch(this.state.url);
             const jsonData = await data.json();
-            this.setState({
-              recipe:jsonData.recipe
-            });
-          }
-      catch(error){
+            this.setState(
+              (state, props)=>{
+              return {recipe:jsonData.recipe};
+              
+            }, 
+            ()=>{}
+            );
+      } catch(error){
             console.log(error);
           }
-      };
-
+ }
   render() {
       //console.log(this.state.recipe);
       const{image_url, publisher, publisher_url, source_url, title, ingredients} = this.state.recipe;
