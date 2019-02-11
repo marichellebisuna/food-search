@@ -7,7 +7,8 @@ import RecipeDetails from './components/RecipeDetails';
 
 class App extends Component {
   state = {
-    recipes:[],
+    //recipes:[],
+    recipes: recipes,
     url:"https://www.food2fork.com/api/search?key=d3187323b2f39c6c707dd4b6f2ee98be"
   };
   async getRecipes(){
@@ -31,7 +32,7 @@ class App extends Component {
     console.log(this.state.recipes);
     return (
       <React.Fragment>
-        <RecipeList />
+        <RecipeList recipes={this.state.recipes}/>
         <RecipeDetails />
       </React.Fragment>
     );
