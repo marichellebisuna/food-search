@@ -6,11 +6,11 @@ import RecipeList from './components/RecipeList';
 import RecipeDetails from './components/RecipeDetails';
 
 class App extends Component {
-  state = {
-    //recipes:[],
+  state = {    
     recipes: recipes,
     url:"https://www.food2fork.com/api/search?key=d3187323b2f39c6c707dd4b6f2ee98be",
-    details_id:35345
+    details_id:35301,
+    pageIndex:1
   };
     async getRecipes(){
      try{
@@ -29,12 +29,21 @@ class App extends Component {
       this.getRecipes()
     };
 
+    displayPage = index =>{
+      switch (index) {
+        default:
+        case 1:
+        return <RecipeList recipes={this.state.recipes} />;
+        case 0:
+        return <RecipeDetails id={this.state.details_id} />;
+      }
+    }
+
   render() {
     console.log(this.state.recipes);
     return (
       <React.Fragment>
-        {/*<RecipeList recipes={this.state.recipes}/> */}
-        <RecipeDetails id={this.state.details_id}/>
+        {this.displayPage(this.state.pageIndex)}
       </React.Fragment>
     );
   }

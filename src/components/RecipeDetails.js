@@ -2,31 +2,46 @@ import React, { Component } from 'react';
 import {recipe} from '../tempDetails';
 
 export default class RecipeDetails extends Component {
-    constructor(props){
-          super(props);
+//     constructor(props){
+//           super(props);
     
-          this.state={
-            recipe:recipe,
-            url:`https://www.food2fork.com/api/get?key=d3187323b2f39c6c707dd4b6f2ee98be&rId=${this.props.id}`
-          };
+//           this.state={
+//             recipe:recipe,
+//             url:`https://www.food2fork.com/api/get?key=d3187323b2f39c6c707dd4b6f2ee98be&rId=${this.props.id}`
+//           };
+//       }
+    
+//  async componentDidMount(){
+    
+//    try{
+//            const data = await fetch(this.state.url);
+//            const jsonData = await data.json();
+//            this.setState({     /*no state, props coz we are fetching data only */
+//               recipe:jsonData.recipe        
+//             });
+//       } catch(error){
+//             console.log(error);
+//       }
+//  }
+  
+/*BELOW IS AN ALTERATIVE WAY TO FETCH API FOR  RECIPE DETAILS */
+state={
+  recipe:recipe
+}
+async  componentDidMount(){
+  //console.log(this.props.id);
+  const id = this.props.id;
+  const url = `https://www.food2fork.com/api/get?key=d3187323b2f39c6c707dd4b6f2ee98be&rId=${id}`;
+  try{
+    const data = await fetch(url);
+    const jsonData = await data.json();
+    this.setState((state,props) => { /*we use this state, props if we update the data */
+      return {recipe:jsonData.recipe }            
+    }, ()=>{}/*this is a call back function */);
+    } catch(error){
+        console.log(error);
       }
-    
- async componentDidMount(){
-   
-   try{
-           const data = await fetch(this.state.url);
-            const jsonData = await data.json();
-            this.setState(
-              (state, props)=>{
-              return {recipe:jsonData.recipe};
-              
-            }, 
-            ()=>{}
-            );
-      } catch(error){
-            console.log(error);
-          }
- }
+}
   render() {
       //console.log(this.state.recipe);
       const{image_url, publisher, publisher_url, source_url, title, ingredients} = this.state.recipe;
