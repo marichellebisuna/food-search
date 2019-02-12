@@ -43,17 +43,18 @@ async  componentDidMount(){
       }
 }
   render() {
-      //console.log(this.state.recipe);
-      const{image_url, publisher, publisher_url, source_url, title, ingredients} = this.state.recipe;
-      
+      console.log(this.state.recipe);
+      const{
+        image_url, publisher, publisher_url, source_url, title, ingredients} = this.state.recipe;
+      const{handleIndex} = this.props;
         
     return (
       <React.Fragment>
         <div className="container">
           <div className="row">
             <div className="col-10 mx-auto col-md-6 my-3">
-            <button className="btn btn-warning mb-5 text-capitalize" type="button "> back to recipe list</button>
-            <img src={image_url} className="d-block w-100" alt="recipe"/>
+            <button className="btn btn-warning mb-5 text-capitalize" type="button" onClick={()=>handleIndex(1)}> back to recipe list</button>
+            <img src={image_url} className="d-block w-100" alt="recipe" />
             </div>
             {/*Details*/}
             <div className="col-10 col-md-6 mx-auto  my-3">
